@@ -15,7 +15,7 @@
                     <input v-model="formData.three" type="text">
                 </FormPanel>
 
-                <button type="submit" name="button">submit</button>
+                <Button submit>publish event</Button>
             </Form>
         </main>
     </div>
@@ -25,6 +25,7 @@
 import AppHeader from '@/components/AppHeader.vue';
 import Form from '@/components/Form.vue';
 import FormPanel from '@/components/FormPanel.vue';
+import Button from '@/components/Button.vue';
 
 export default {
     data: () => ({
@@ -43,7 +44,8 @@ export default {
     components: {
         AppHeader,
         Form,
-        FormPanel
+        FormPanel,
+        Button
     },
 }
 </script>
