@@ -1,5 +1,8 @@
-<template>
-    <form class="form" @submit.prevent="$emit('submit')">
+<template functional>
+    <form
+        class="form"
+        @submit.prevent="listeners.submit"
+    >
         <slot></slot>
     </form>
 </template>
