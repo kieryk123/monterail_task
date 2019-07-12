@@ -1,0 +1,18 @@
+// assets
+@import "assets/_normalize";
+@import "assets/_variables";
+@import "assets/_mixins";
+@import "assets/_fonts";
+@import "assets/_animations";
+
+// components
+
+
+// general styles
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: $font-primary;
+}
