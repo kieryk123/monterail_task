@@ -6,13 +6,14 @@
 @import "assets/_animations";
 
 // components
-
+@import "components/_app-header";
 
 // general styles
 * {
     box-sizing: border-box;
 }
 
-body {
+body, html {
     font-family: $font-primary;
+    background-color: #f7f7f7;
 }
