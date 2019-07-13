@@ -4,7 +4,6 @@
         <main class="app-container">
             <Form @submit="submitForm">
                 <FormPanel title="About">
-                    <!-- <input v-model="formData.title" type="text"> -->
                     <TextField
                         required
                         v-model="formData.title"
@@ -18,6 +17,13 @@
                         placeholder="Write about your event, be creative"
                         helper-text="Max lenght 140 characters"
                         :max-length="140"
+                    />
+                    <Select
+                        v-model="formData.category_id"
+                        label="Category"
+                        placeholder="Select category"
+                        helper-text="Describes topic and people who should be interested in this event"
+                        :options="categories"
                     />
                 </FormPanel>
 
@@ -34,6 +40,7 @@ import FormPanel from '@/components/FormPanel.vue';
 import Button from '@/components/Button.vue';
 import TextField from '@/components/TextField.vue';
 import TextArea from '@/components/TextArea.vue';
+import Select from '@/components/Select.vue';
 
 export default {
     data: () => ({
@@ -42,7 +49,7 @@ export default {
             two: '',
             three: '',
             title: '',
-            description: 'lol',
+            description: '',
             category_id: null,
             paid_event: false,
             event_fee: null,
@@ -53,7 +60,49 @@ export default {
                 email: '',
                 id: ''
             }
-        }
+        },
+        categories: [
+          {
+            "id": 0,
+            "name": "Cycling"
+          },
+          {
+            "id": 1,
+            "name": "Hiking"
+          },
+          {
+            "id": 2,
+            "name": "Cooking"
+          },
+          {
+            "id": 3,
+            "name": "Rock climbing"
+          },
+          {
+            "id": 4,
+            "name": "Yoga"
+          },
+          {
+            "id": 5,
+            "name": "Fencing"
+          },
+          {
+            "id": 6,
+            "name": "Swimming"
+          },
+          {
+            "id": 7,
+            "name": "Badminton"
+          },
+          {
+            "id": 8,
+            "name": "Running"
+          },
+          {
+            "id": 9,
+            "name": "Dance"
+          }
+        ]
     }),
     methods: {
         submitForm() {
@@ -67,6 +116,7 @@ export default {
         FormPanel,
         TextField,
         TextArea,
+        Select,
         Button
     },
 }
