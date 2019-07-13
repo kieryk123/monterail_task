@@ -59,6 +59,12 @@
     }
 
     &--textarea {
+        align-items: flex-start;
+
+        .form-field__label-col {
+            padding-top: 9px;
+        }
+
         .form-field__input {
             resize: none;
             max-width: 100%;
