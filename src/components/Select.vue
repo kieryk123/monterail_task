@@ -1,31 +1,27 @@
 <template>
     <div class="form-field form-field--select">
-        <div class="form-field__label-col">
-            <label class="form-field__label">{{ label }}<span v-if="required" class="form-field__label-required-sign">*</span></label>
-        </div>
-        <div class="form-field__input-col">
-            <select
-                required
-                class="form-field__input"
-                @change="$emit('input', $event.target.value)"
-                @blur="$emit('blur')"
-            >
-                <option disabled selected value="">{{ placeholder }}</option>
-                <option
-                    v-for="option in options"
-                    :key="option.id"
-                    :value="option.id"
-                >{{ option.name }}</option>
-            </select>
-            <p v-if="helperText" class="form-field__helper-text">{{ helperText }}</p>
-        </div>
+        <select
+            required
+            class="form-field__input"
+            :id="id"
+            @change="$emit('input', $event.target.value)"
+            @blur="$emit('blur')"
+        >
+            <option disabled selected value="">{{ placeholder }}</option>
+            <option
+                v-for="option in options"
+                :key="option.id"
+                :value="option.id"
+            >{{ option.name }}</option>
+        </select>
+        <p v-if="helperText" class="form-field__helper-text">{{ helperText }}</p>
     </div>
 </template>
 
 <script>
 export default {
     props: {
-        label: {
+        id: {
             type: String,
             required: true
         },

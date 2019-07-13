@@ -1,29 +1,24 @@
 <template>
     <div class="form-field form-field--textarea">
-        <div class="form-field__label-col">
-            <label class="form-field__label">{{ label }}<span v-if="required" class="form-field__label-required-sign">*</span></label>
-        </div>
-        <div class="form-field__input-col">
-            <textarea
-                class="form-field__input"
-                type="text"
-                :placeholder="placeholder"
-                v-model="value"
-                @blur="$emit('blur')"
-                :maxlength="maxLength"
-            ></textarea>
-            <p v-if="helperText" class="form-field__helper-text">
-                <span>{{ helperText }}</span>
-                <span>{{ length }}/{{ maxLength }}</span>
-            </p>
-        </div>
+        <textarea
+            class="form-field__input"
+            :id="id"
+            :placeholder="placeholder"
+            v-model="value"
+            @blur="$emit('blur')"
+            :maxlength="maxLength"
+        ></textarea>
+        <p v-if="helperText" class="form-field__helper-text">
+            <span>{{ helperText }}</span>
+            <span>{{ length }}/{{ maxLength }}</span>
+        </p>
     </div>
 </template>
 
 <script>
 export default {
     props: {
-        label: {
+        id: {
             type: String,
             required: true
         },

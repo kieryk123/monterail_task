@@ -4,27 +4,47 @@
         <main class="app-container">
             <Form @submit="submitForm">
                 <FormPanel title="About">
-                    <TextField
-                        required
-                        v-model="formData.title"
-                        label="title"
-                        placeholder="Make it short and clear"
-                    />
-                    <TextArea
-                        required
-                        v-model="formData.description"
-                        label="description"
-                        placeholder="Write about your event, be creative"
-                        helper-text="Max lenght 140 characters"
-                        :max-length="140"
-                    />
-                    <Select
-                        v-model="formData.category_id"
-                        label="Category"
-                        placeholder="Select category"
-                        helper-text="Describes topic and people who should be interested in this event"
-                        :options="categories"
-                    />
+                    <FormPanelRow>
+                        <template #label>
+                            <Label required for="title">Title</Label>
+                        </template>
+
+                        <TextField
+                            required
+                            id="title"
+                            v-model="formData.title"
+                            placeholder="Make it short and clear"
+                        />
+                    </FormPanelRow>
+
+                    <FormPanelRow>
+                        <template #label>
+                            <Label required for="description">Description</Label>
+                        </template>
+
+                        <TextArea
+                            required
+                            id="description"
+                            v-model="formData.description"
+                            placeholder="Write about your event, be creative"
+                            helper-text="Max lenght 140 characters"
+                            :max-length="140"
+                        />
+                    </FormPanelRow>
+
+                    <FormPanelRow>
+                        <template #label>
+                            <Label for="category">Category</Label>
+                        </template>
+
+                        <Select
+                            id="category"
+                            v-model="formData.category_id"
+                            placeholder="Select category"
+                            helper-text="Describes topic and people who should be interested in this event"
+                            :options="categories"
+                        />
+                    </FormPanelRow>
                 </FormPanel>
 
                 <Button submit>publish event</Button>
@@ -37,7 +57,9 @@
 import AppHeader from '@/components/AppHeader.vue';
 import Form from '@/components/Form.vue';
 import FormPanel from '@/components/FormPanel.vue';
+import FormPanelRow from '@/components/FormPanelRow.vue';
 import Button from '@/components/Button.vue';
+import Label from '@/components/Label.vue';
 import TextField from '@/components/TextField.vue';
 import TextArea from '@/components/TextArea.vue';
 import Select from '@/components/Select.vue';
@@ -114,10 +136,12 @@ export default {
         AppHeader,
         Form,
         FormPanel,
+        FormPanelRow,
         TextField,
         TextArea,
         Select,
-        Button
+        Button,
+        Label
     },
 }
 </script>

@@ -23,4 +23,11 @@
 	&__body {
         padding-top: 6px;
 	}
+
+    &__row {
+        display: flex;
+        justify-content: flex-start;
+        align-items: flex-start;
+        margin-top: 19px;
+    }
 }
