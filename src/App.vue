@@ -50,7 +50,7 @@
 
                     <FormPanelRow>
                         <template #label>
-                            <Label>Payment</Label>
+                            <Label :required="formData.paid_event">Payment</Label>
                         </template>
 
                         <Radio
@@ -126,6 +126,58 @@
                     </FormPanelRow>
                 </FormPanel>
 
+                <FormPanel title="When">
+                    <FormPanelRow>
+                        <template #label>
+                            <Label required for="date">Starts on</Label>
+                        </template>
+
+                        <DateField
+                            id="date"
+                            :min="new Date().toISOString().slice(0, 10)"
+                            v-model="formData.date"
+                        />
+
+                        <span>at</span>
+
+                        <TextField
+                            inline
+                            id="duration"
+                            v-model="formData.time"
+                            placeholder="--:--"
+                        />
+
+                        <Radio
+                            id="time_am_format"
+                            name="time_format"
+                            v-model="formData.time_format"
+                            value-to-set="AM"
+                        >AM</Radio>
+
+                        <Radio
+                            id="time_pm_format"
+                            name="time_format"
+                            v-model="formData.time_format"
+                            value-to-set="PM"
+                        >PM</Radio>
+                    </FormPanelRow>
+
+                    <FormPanelRow>
+                        <template #label>
+                            <Label for="duration">Duration</Label>
+                        </template>
+
+                        <TextField
+                            inline
+                            id="duration"
+                            v-model="formData.duration"
+                            placeholder="Number"
+                        />
+
+                        <span>hour</span>
+                    </FormPanelRow>
+                </FormPanel>
+
                 <Button submit>publish event</Button>
             </Form>
         </main>
@@ -143,6 +195,7 @@ import TextField from '@/components/TextField.vue';
 import TextArea from '@/components/TextArea.vue';
 import Select from '@/components/Select.vue';
 import Radio from '@/components/Radio.vue';
+import DateField from '@/components/DateField.vue';
 import categories from '@/data/categories.json';
 import employes from '@/data/employes.json';
 
@@ -161,11 +214,13 @@ export default {
             event_fee: null,
             reward: null,
             date: '', // YYYY-MM-DDTHH:mm (example: 2018-01-19T15:15)
+            time: '',
+            time_format: 'AM', // AM or PM
             duration: null, // in seconds
             coordinator: {
                 email: '',
                 id: ''
-            }
+            },
         },
         categories,
         employes
@@ -185,6 +240,7 @@ export default {
         TextArea,
         Select,
         Radio,
+        DateField,
         Button,
         Label
     },

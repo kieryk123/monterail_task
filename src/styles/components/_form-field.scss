@@ -71,7 +71,11 @@
         }
     }
 
+    &--datefield {
+        max-width: 188px;
+    }
+
     &--inline {
-        width: 84px;
+        max-width: 84px;
     }
 }
