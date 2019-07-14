@@ -76,6 +76,22 @@
                             <span>$</span>
                         </template>
                     </FormPanelRow>
+
+                    <FormPanelRow>
+                        <template #label>
+                            <Label for="payment">Reward</Label>
+                        </template>
+
+                        <TextField
+                            inline
+                            required
+                            id="reward"
+                            v-model="formData.reward"
+                            placeholder="Number"
+                        />
+
+                        <span>reward points for attendance</span>
+                    </FormPanelRow>
                 </FormPanel>
 
                 <Button submit>publish event</Button>

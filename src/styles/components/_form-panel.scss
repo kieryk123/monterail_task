@@ -33,5 +33,10 @@
         .form-label {
             align-self: flex-start;
         }
+
+        span:not(.form-label__required-sign) {
+            display: inline-block;
+            margin-right: 10px;
+        }
     }
 }
