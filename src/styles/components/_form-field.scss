@@ -75,6 +75,25 @@
         max-width: 188px;
     }
 
+    &--timefield {
+        max-width: 84px;
+
+        .form-field__input {
+            appearance: none;
+
+            &::-webkit-datetime-edit-ampm-field {
+                display: none;
+            }
+
+            &::-webkit-clear-button {
+              -webkit-appearance: none;
+              -moz-appearance: none;
+              appearance: none;
+              margin: 0;
+            }
+        }
+    }
+
     &--inline {
         max-width: 84px;
     }

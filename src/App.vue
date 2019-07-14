@@ -140,11 +140,9 @@
 
                         <span>at</span>
 
-                        <TextField
-                            inline
-                            id="duration"
+                        <TimeField
+                            id="time"
                             v-model="formData.time"
-                            placeholder="--:--"
                         />
 
                         <Radio
@@ -196,6 +194,7 @@ import TextArea from '@/components/TextArea.vue';
 import Select from '@/components/Select.vue';
 import Radio from '@/components/Radio.vue';
 import DateField from '@/components/DateField.vue';
+import TimeField from '@/components/TimeField.vue';
 import categories from '@/data/categories.json';
 import employes from '@/data/employes.json';
 
@@ -241,6 +240,7 @@ export default {
         Select,
         Radio,
         DateField,
+        TimeField,
         Button,
         Label
     },
