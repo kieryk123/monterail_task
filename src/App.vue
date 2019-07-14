@@ -43,12 +43,14 @@
                             placeholder="Select category"
                             helper-text="Describes topic and people who should be interested in this event"
                             :options="categories"
+                            option-key="name"
+                            option-value="id"
                         />
                     </FormPanelRow>
 
                     <FormPanelRow>
                         <template #label>
-                            <Label for="payment">Payment</Label>
+                            <Label>Payment</Label>
                         </template>
 
                         <Radio
@@ -79,7 +81,7 @@
 
                     <FormPanelRow>
                         <template #label>
-                            <Label for="payment">Reward</Label>
+                            <Label for="reward">Reward</Label>
                         </template>
 
                         <TextField
@@ -91,6 +93,36 @@
                         />
 
                         <span>reward points for attendance</span>
+                    </FormPanelRow>
+                </FormPanel>
+
+                <FormPanel title="Coordinator">
+                    <FormPanelRow>
+                        <template #label>
+                            <Label required for="coordinator_id">Responsible</Label>
+                        </template>
+
+                        <Select
+                            required
+                            id="coordinator_id"
+                            v-model="formData.coordinator.id"
+                            :options="employes"
+                            :option-key="['name', 'lastname']"
+                            option-value="id"
+                            :groups="['Me', 'Others']"
+                        />
+                    </FormPanelRow>
+
+                    <FormPanelRow>
+                        <template #label>
+                            <Label for="coordinator_email">Email</Label>
+                        </template>
+
+                        <TextField
+                            id="coordinator_email"
+                            v-model="formData.coordinator.email"
+                            placeholder="Email"
+                        />
                     </FormPanelRow>
                 </FormPanel>
 
@@ -111,8 +143,15 @@ import TextField from '@/components/TextField.vue';
 import TextArea from '@/components/TextArea.vue';
 import Select from '@/components/Select.vue';
 import Radio from '@/components/Radio.vue';
+import categories from '@/data/categories.json';
+import employes from '@/data/employes.json';
 
 export default {
+    created() {
+        if (this.$store.getters.loggedUserId) {
+            this.formData.coordinator.id = this.$store.getters.loggedUserId;
+        }
+    },
     data: () => ({
         formData: {
             title: '',
@@ -128,48 +167,8 @@ export default {
                 id: ''
             }
         },
-        categories: [
-          {
-            "id": 0,
-            "name": "Cycling"
-          },
-          {
-            "id": 1,
-            "name": "Hiking"
-          },
-          {
-            "id": 2,
-            "name": "Cooking"
-          },
-          {
-            "id": 3,
-            "name": "Rock climbing"
-          },
-          {
-            "id": 4,
-            "name": "Yoga"
-          },
-          {
-            "id": 5,
-            "name": "Fencing"
-          },
-          {
-            "id": 6,
-            "name": "Swimming"
-          },
-          {
-            "id": 7,
-            "name": "Badminton"
-          },
-          {
-            "id": 8,
-            "name": "Running"
-          },
-          {
-            "id": 9,
-            "name": "Dance"
-          }
-        ]
+        categories,
+        employes
     }),
     methods: {
         submitForm() {

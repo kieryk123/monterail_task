@@ -5,12 +5,17 @@ Vue.use(Vuex);
 
 export default new Vuex.Store({
     state: {
-
+        loggedUserId: 3
     },
     mutations: {
 
     },
     actions: {
 
+    },
+    getters: {
+        loggedUserId(state) {
+            return state.loggedUserId;
+        }
     }
 });
