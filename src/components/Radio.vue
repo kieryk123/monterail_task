@@ -5,7 +5,7 @@
             :id="id"
             type="radio"
             :name="name"
-            :checked="value"
+            :checked="isChecked"
             @change="onChange"
             @blur="$emit('blur')"
         >
@@ -30,7 +30,7 @@ export default {
             required: true
         },
         value: {
-            type: Boolean
+            type: [Boolean, String]
         },
         name: {
             type: String,
@@ -38,6 +38,11 @@ export default {
         },
         valueToSet: {
             required: true
+        }
+    },
+    computed: {
+        isChecked() {
+            return this.$attrs.checked === this.valueToSet;
         }
     },
     methods: {

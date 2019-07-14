@@ -2,7 +2,10 @@
     <div id="app">
         <AppHeader headline="New event"/>
         <main class="app-container">
-            <Form @submit="submitForm">
+            <Form
+                v-if="!isFormSubmitted"
+                @submit="submitForm"
+            >
                 <FormPanel title="About">
                     <FormPanelRow>
                         <template #label>
@@ -178,6 +181,18 @@
 
                 <Button submit>publish event</Button>
             </Form>
+
+            <Alert
+                v-else
+                type="success"
+            >
+                <template #head>
+                    <h2>Success</h2>
+                </template>
+                <template #body>
+                    <p>Event has been created.</p>
+                </template>
+            </Alert>
         </main>
     </div>
 </template>
@@ -195,6 +210,7 @@ import Select from '@/components/Select.vue';
 import Radio from '@/components/Radio.vue';
 import DateField from '@/components/DateField.vue';
 import TimeField from '@/components/TimeField.vue';
+import Alert from '@/components/Alert.vue';
 import categories from '@/data/categories.json';
 import employes from '@/data/employes.json';
 
@@ -221,11 +237,13 @@ export default {
                 id: ''
             },
         },
+        isFormSubmitted: false,
         categories,
         employes
     }),
     methods: {
         submitForm() {
+            this.isFormSubmitted = true;
             console.log('form submited');
             console.log(JSON.stringify(this.formData, null, 4));
         }
@@ -242,7 +260,8 @@ export default {
         DateField,
         TimeField,
         Button,
-        Label
+        Label,
+        Alert
     },
 }
 </script>
