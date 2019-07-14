@@ -29,3 +29,8 @@
         }
     }
 }
+
+@mixin ps {
+    position: absolute;
+    content: '';
+}

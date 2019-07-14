@@ -2,6 +2,7 @@
     max-width: 448px;
     width: 100%;
     text-align: left;
+    margin-right: 10px;
 
 	&__input {
         width: 100%;
@@ -49,11 +50,11 @@
 
         &:after {
             position: absolute;
+            content: '\0025BE';
             top: 5px;
             right: 10px;
             font-size: 1.3em;
             pointer-events: none;
-            content: '\0025BE';
             color: rgba($color-primary, 0.75);
         }
 
@@ -68,5 +69,9 @@
                 color: $font-color-primary;
             }
         }
+    }
+
+    &--inline {
+        width: 80px;
     }
 }

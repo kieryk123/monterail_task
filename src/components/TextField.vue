@@ -1,5 +1,5 @@
 <template>
-    <div class="form-field form-field--textfield">
+    <div :class="['form-field', 'form-field--textfield', inlineClass]">
         <input
             class="form-field__input"
             :id="id"
@@ -30,6 +30,16 @@ export default {
         helperText: {
             type: String,
             required: false
+        },
+        inline: {
+            type: Boolean,
+            required: false,
+            default: false
+        }
+    },
+    computed: {
+        inlineClass() {
+            return this.inline ? 'form-field--inline' : '';
         }
     }
 }

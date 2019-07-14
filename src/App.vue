@@ -45,6 +45,37 @@
                             :options="categories"
                         />
                     </FormPanelRow>
+
+                    <FormPanelRow>
+                        <template #label>
+                            <Label for="payment">Payment</Label>
+                        </template>
+
+                        <Radio
+                            id="freeradio"
+                            name="paid_event"
+                            v-model="formData.paid_event"
+                            :value-to-set="false"
+                        >Free event</Radio>
+
+                        <Radio
+                            id="paidradio"
+                            name="paid_event"
+                            v-model="formData.paid_event"
+                            :value-to-set="true"
+                        >Paid event</Radio>
+
+                        <template v-if="formData.paid_event">
+                            <TextField
+                                inline
+                                required
+                                id="eventfee"
+                                v-model="formData.event_fee"
+                                placeholder="Fee"
+                            />
+                            <span>$</span>
+                        </template>
+                    </FormPanelRow>
                 </FormPanel>
 
                 <Button submit>publish event</Button>
@@ -63,13 +94,11 @@ import Label from '@/components/Label.vue';
 import TextField from '@/components/TextField.vue';
 import TextArea from '@/components/TextArea.vue';
 import Select from '@/components/Select.vue';
+import Radio from '@/components/Radio.vue';
 
 export default {
     data: () => ({
         formData: {
-            one: '',
-            two: '',
-            three: '',
             title: '',
             description: '',
             category_id: null,
@@ -140,6 +169,7 @@ export default {
         TextField,
         TextArea,
         Select,
+        Radio,
         Button,
         Label
     },
