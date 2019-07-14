@@ -4,7 +4,7 @@
             class="form-field__input"
             :id="id"
             :placeholder="placeholder"
-            v-model="value"
+            v-model="localValue"
             @blur="$emit('blur')"
             :maxlength="maxLength"
         ></textarea>
@@ -17,7 +17,13 @@
 
 <script>
 export default {
+    created() {
+            this.localValue = this.value;
+    },
     props: {
+        value: {
+            required: true
+        },
         id: {
             type: String,
             required: true
@@ -40,16 +46,16 @@ export default {
         }
     },
     data: () => ({
-        value: ''
+        localValue: ''
     }),
     watch: {
-        value() {
-            this.$emit('input', this.value);
+        localValue() {
+            this.$emit('input', this.localValue);
         }
     },
     computed: {
         length() {
-            return this.value.length;
+            return this.localValue.length;
         }
     }
 }

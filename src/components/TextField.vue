@@ -4,6 +4,7 @@
             class="form-field__input"
             :id="id"
             type="text"
+            :value="value"
             :placeholder="placeholder"
             @input="$emit('input', $event.target.value)"
             @blur="$emit('blur')"
@@ -15,6 +16,9 @@
 <script>
 export default {
     props: {
+        value: {
+            required: true
+        },
         id: {
             type: String,
             required: true

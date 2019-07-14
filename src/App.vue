@@ -173,7 +173,7 @@ export default {
     methods: {
         submitForm() {
             console.log('form submited');
-            console.log({...this.formData});
+            console.log(JSON.stringify(this.formData, null, 4));
         }
     },
     components: {
