@@ -213,6 +213,7 @@ import TimeField from '@/components/TimeField.vue';
 import Alert from '@/components/Alert.vue';
 import categories from '@/data/categories.json';
 import employes from '@/data/employes.json';
+import moment from 'moment';
 
 export default {
     created() {
@@ -243,9 +244,20 @@ export default {
     }),
     methods: {
         submitForm() {
-            this.isFormSubmitted = true;
+            // this.isFormSubmitted = true;
             console.log('form submited');
             console.log(JSON.stringify(this.formData, null, 4));
+            const datetime = this.getDatetime(this.formData.date, this.formData.time, this.formData.time_format);
+            console.log(datetime);
+            const duration = this.getSecondsFromHours(this.formData.duration);
+            console.log(duration);
+        },
+        getDatetime(date, time, timeFormat) {
+            time = moment(`${time}:00 ${timeFormat}`, 'hh:mm A').format('HH:mm');
+            return moment(`${date} ${time}`).format('YYYY-MM-DDTHH:mm');
+        },
+        getSecondsFromHours(hours) {
+            return parseFloat(hours) * 3600;
         }
     },
     components: {
