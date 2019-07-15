@@ -1,4 +1,5 @@
 .form-field {
+    position: relative;
     max-width: 448px;
     width: 100%;
     text-align: left;
@@ -28,6 +29,31 @@
         color: rgba($font-color-primary, 0.35);
         margin-top: 4px;
         margin-bottom: 0;
+    }
+
+    &__error-label {
+        position: absolute;
+        z-index: 9;
+        left: calc(100% + 7px);
+        top: 6px;
+        display: inline-block;
+        width: 145px;
+        background-color: $input-error-color;
+        color: white;
+        font-size: 12px;
+        border-radius: 1px;
+        padding: 4px;
+
+        &:before {
+            @include ps;
+            left: -4px;
+            top: calc(50% - 8px / 2);
+            width: 0;
+            height: 0;
+            border-top: 4px solid transparent;
+            border-bottom: 4px solid transparent;
+            border-right: 4px solid $input-error-color;
+        }
     }
 
     &--textfield {
@@ -96,5 +122,11 @@
 
     &--inline {
         max-width: 84px;
+    }
+
+    &--error {
+        .form-field__input {
+            border-color: $input-error-color;
+        }
     }
 }

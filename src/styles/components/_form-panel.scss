@@ -27,14 +27,14 @@
     &__row {
         display: flex;
         justify-content: flex-start;
-        align-items: center;
+        align-items: baseline;
         margin-top: 19px;
 
         .form-label {
             align-self: flex-start;
         }
 
-        span:not(.form-label__required-sign) {
+        span:not(.form-label__required-sign):not(.form-field__error-label) {
             display: inline-block;
             margin-right: 10px;
         }

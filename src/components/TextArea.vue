@@ -1,8 +1,9 @@
 <template>
-    <div class="form-field form-field--textarea">
+    <div :class="['form-field', 'form-field--textarea', validationClass]">
         <textarea
             class="form-field__input"
             :id="id"
+            :name="name"
             :placeholder="placeholder"
             v-model="localValue"
             @blur="$emit('blur')"
@@ -12,6 +13,7 @@
             <span>{{ helperText }}</span>
             <span>{{ length }}/{{ maxLength }}</span>
         </p>
+        <span v-if="isErrorMessageVisible" class="form-field__error-label">{{ errorMessages[0] }}</span>
     </div>
 </template>
 
@@ -25,6 +27,10 @@ export default {
             required: true
         },
         id: {
+            type: String,
+            required: true
+        },
+        name: {
             type: String,
             required: true
         },
@@ -43,6 +49,14 @@ export default {
         maxLength: {
             type: Number,
             required: false
+        },
+        errorMessages: {
+            type: Array,
+            required: false
+        },
+        valid: {
+            type: Boolean,
+            required: false
         }
     },
     data: () => ({
@@ -56,6 +70,16 @@ export default {
     computed: {
         length() {
             return this.localValue.length;
+        },
+        validationClass() {
+            if (this.errorMessages) {
+                return this.valid || this.errorMessages.length === 0 ? '' : 'form-field--error';
+            }
+        },
+        isErrorMessageVisible() {
+            if (this.errorMessages) {
+                return this.valid || this.errorMessages.length === 0 ? false : true;
+            }
         }
     }
 }

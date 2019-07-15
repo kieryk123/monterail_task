@@ -2,188 +2,282 @@
     <div id="app">
         <AppHeader headline="New event"/>
         <main class="app-container">
-            <Form
-                v-if="!isFormSubmitted"
-                @submit="submitForm"
+            <ValidationObserver
+                ref="validationObserver"
+                v-slot="{ valid, untouched, validate }"
             >
-                <FormPanel title="About">
-                    <FormPanelRow>
-                        <template #label>
-                            <Label required for="title">Title</Label>
-                        </template>
+                <Form
+                    v-if="!isFormSubmitted"
+                    @submit="submitForm"
+                >
+                    <!-- ##### PANEL ABOUT ##### -->
+                    <FormPanel title="About">
+                        <FormPanelRow>
+                            <template #label>
+                                <Label required for="title">Title</Label>
+                            </template>
 
-                        <TextField
-                            required
-                            id="title"
-                            v-model="formData.title"
-                            placeholder="Make it short and clear"
-                        />
-                    </FormPanelRow>
+                            <ValidationProvider
+                                name="title"
+                                rules="required"
+                                v-slot="{ errors, valid }"
+                                slim
+                            >
+                                <TextField
+                                    id="title"
+                                    name="title"
+                                    v-model="formData.title"
+                                    placeholder="Make it short and clear"
+                                    :error-messages="errors"
+                                    :valid="valid"
+                                />
+                            </ValidationProvider>
+                        </FormPanelRow>
 
-                    <FormPanelRow>
-                        <template #label>
-                            <Label required for="description">Description</Label>
-                        </template>
+                        <FormPanelRow>
+                            <template #label>
+                                <Label required for="description">Description</Label>
+                            </template>
 
-                        <TextArea
-                            required
-                            id="description"
-                            v-model="formData.description"
-                            placeholder="Write about your event, be creative"
-                            helper-text="Max lenght 140 characters"
-                            :max-length="140"
-                        />
-                    </FormPanelRow>
+                            <ValidationProvider
+                                name="description"
+                                rules="required"
+                                v-slot="{ errors, valid }"
+                                slim
+                            >
+                                <TextArea
+                                    id="description"
+                                    name="description"
+                                    v-model="formData.description"
+                                    placeholder="Write about your event, be creative"
+                                    helper-text="Max lenght 140 characters"
+                                    :max-length="140"
+                                    :error-messages="errors"
+                                    :valid="valid"
+                                />
+                            </ValidationProvider>
+                        </FormPanelRow>
 
-                    <FormPanelRow>
-                        <template #label>
-                            <Label for="category">Category</Label>
-                        </template>
+                        <FormPanelRow>
+                            <template #label>
+                                <Label for="category">Category</Label>
+                            </template>
 
-                        <Select
-                            id="category"
-                            v-model="formData.category_id"
-                            placeholder="Select category"
-                            helper-text="Describes topic and people who should be interested in this event"
-                            :options="categories"
-                            option-key="name"
-                            option-value="id"
-                        />
-                    </FormPanelRow>
-
-                    <FormPanelRow>
-                        <template #label>
-                            <Label :required="formData.paid_event">Payment</Label>
-                        </template>
-
-                        <Radio
-                            id="freeradio"
-                            name="paid_event"
-                            v-model="formData.paid_event"
-                            :value-to-set="false"
-                        >Free event</Radio>
-
-                        <Radio
-                            id="paidradio"
-                            name="paid_event"
-                            v-model="formData.paid_event"
-                            :value-to-set="true"
-                        >Paid event</Radio>
-
-                        <template v-if="formData.paid_event">
-                            <TextField
-                                inline
-                                required
-                                id="eventfee"
-                                v-model="formData.event_fee"
-                                placeholder="Fee"
+                            <Select
+                                id="category"
+                                name="category"
+                                v-model="formData.category_id"
+                                placeholder="Select category"
+                                helper-text="Describes topic and people who should be interested in this event"
+                                :options="categories"
+                                option-key="name"
+                                option-value="id"
                             />
-                            <span>$</span>
-                        </template>
-                    </FormPanelRow>
+                        </FormPanelRow>
 
-                    <FormPanelRow>
-                        <template #label>
-                            <Label for="reward">Reward</Label>
-                        </template>
+                        <FormPanelRow>
+                            <template #label>
+                                <Label :required="formData.paid_event">Payment</Label>
+                            </template>
 
-                        <TextField
-                            inline
-                            required
-                            id="reward"
-                            v-model="formData.reward"
-                            placeholder="Number"
-                        />
+                            <Radio
+                                id="freeradio"
+                                name="paid_event"
+                                v-model="formData.paid_event"
+                                :value-to-set="false"
+                            >Free event</Radio>
 
-                        <span>reward points for attendance</span>
-                    </FormPanelRow>
-                </FormPanel>
+                            <Radio
+                                id="paidradio"
+                                name="paid_event"
+                                v-model="formData.paid_event"
+                                :value-to-set="true"
+                            >Paid event</Radio>
 
-                <FormPanel title="Coordinator">
-                    <FormPanelRow>
-                        <template #label>
-                            <Label required for="coordinator_id">Responsible</Label>
-                        </template>
+                            <ValidationProvider
+                                v-if="formData.paid_event"
+                                name="fee"
+                                rules="required|numeric"
+                                v-slot="{ errors, valid }"
+                                slim
+                            >
+                                <TextField
+                                    inline
+                                    id="event_fee"
+                                    name="event_fee"
+                                    v-model="formData.event_fee"
+                                    placeholder="Fee"
+                                    :error-messages="errors"
+                                    :valid="valid"
+                                />
+                            </ValidationProvider>
+                            <span v-if="formData.paid_event">$</span>
+                        </FormPanelRow>
 
-                        <Select
-                            required
-                            id="coordinator_id"
-                            v-model="formData.coordinator.id"
-                            :options="employes"
-                            :option-key="['name', 'lastname']"
-                            option-value="id"
-                            :groups="['Me', 'Others']"
-                        />
-                    </FormPanelRow>
+                        <FormPanelRow>
+                            <template #label>
+                                <Label for="reward">Reward</Label>
+                            </template>
 
-                    <FormPanelRow>
-                        <template #label>
-                            <Label for="coordinator_email">Email</Label>
-                        </template>
+                            <ValidationProvider
+                                name="reward"
+                                rules="numeric|min_value:1|max_value:100"
+                                v-slot="{ errors, valid }"
+                                slim
+                            >
+                                <TextField
+                                    inline
+                                    id="reward"
+                                    name="reward"
+                                    v-model="formData.reward"
+                                    placeholder="Number"
+                                    :error-messages="errors"
+                                    :valid="valid"
+                                />
+                            </ValidationProvider>
 
-                        <TextField
-                            id="coordinator_email"
-                            v-model="formData.coordinator.email"
-                            placeholder="Email"
-                        />
-                    </FormPanelRow>
-                </FormPanel>
+                            <span>reward points for attendance</span>
+                        </FormPanelRow>
+                    </FormPanel>
 
-                <FormPanel title="When">
-                    <FormPanelRow>
-                        <template #label>
-                            <Label required for="date">Starts on</Label>
-                        </template>
+                    <!-- ##### PANEL COORDINATOR ##### -->
+                    <FormPanel title="Coordinator">
+                        <FormPanelRow>
+                            <template #label>
+                                <Label required for="coordinator_id">Responsible</Label>
+                            </template>
 
-                        <DateField
-                            id="date"
-                            :min="new Date().toISOString().slice(0, 10)"
-                            v-model="formData.date"
-                        />
+                            <ValidationProvider
+                                name="coordinator"
+                                rules="required"
+                                v-slot="{ errors, valid }"
+                                slim
+                            >
+                                <Select
+                                    required
+                                    id="coordinator_id"
+                                    name="coordinator_id"
+                                    v-model="formData.coordinator.id"
+                                    :options="employes"
+                                    :option-key="['name', 'lastname']"
+                                    option-value="id"
+                                    :groups="['Me', 'Others']"
+                                    :error-messages="errors"
+                                    :valid="valid"
+                                />
+                            </ValidationProvider>
+                        </FormPanelRow>
 
-                        <span>at</span>
+                        <FormPanelRow>
+                            <template #label>
+                                <Label for="coordinator_email">Email</Label>
+                            </template>
 
-                        <TimeField
-                            id="time"
-                            v-model="formData.time"
-                        />
+                            <ValidationProvider
+                                name="coordinator email"
+                                rules="email"
+                                v-slot="{ errors, valid }"
+                                slim
+                            >
+                                <TextField
+                                    id="coordinator_email"
+                                    name="coordinator_email"
+                                    v-model="formData.coordinator.email"
+                                    placeholder="Email"
+                                    :error-messages="errors"
+                                    :valid="valid"
+                                />
+                            </ValidationProvider>
+                        </FormPanelRow>
+                    </FormPanel>
 
-                        <Radio
-                            id="time_am_format"
-                            name="time_format"
-                            v-model="formData.time_format"
-                            value-to-set="AM"
-                        >AM</Radio>
+                    <!-- ##### PANEL WHEN ##### -->
+                    <FormPanel title="When">
+                        <FormPanelRow>
+                            <template #label>
+                                <Label required for="date">Starts on</Label>
+                            </template>
 
-                        <Radio
-                            id="time_pm_format"
-                            name="time_format"
-                            v-model="formData.time_format"
-                            value-to-set="PM"
-                        >PM</Radio>
-                    </FormPanelRow>
+                            <ValidationProvider
+                                name="date"
+                                rules="required"
+                                v-slot="{ errors, valid }"
+                                slim
+                            >
+                                <DateField
+                                    id="date"
+                                    name="date"
+                                    :min="tomorrowDate"
+                                    v-model="formData.date"
+                                    :error-messages="errors"
+                                    :valid="valid"
+                                />
+                            </ValidationProvider>
 
-                    <FormPanelRow>
-                        <template #label>
-                            <Label for="duration">Duration</Label>
-                        </template>
+                            <span>at</span>
 
-                        <TextField
-                            inline
-                            id="duration"
-                            v-model="formData.duration"
-                            placeholder="Number"
-                        />
+                            <ValidationProvider
+                                name="time"
+                                rules="required"
+                                v-slot="{ errors, valid }"
+                                slim
+                            >
+                                <TimeField
+                                    id="time"
+                                    name="time"
+                                    v-model="formData.time"
+                                    :error-messages="errors"
+                                    :valid="valid"
+                                />
+                            </ValidationProvider>
 
-                        <span>hour</span>
-                    </FormPanelRow>
-                </FormPanel>
+                            <Radio
+                                id="time_am_format"
+                                name="time_format"
+                                v-model="formData.time_format"
+                                value-to-set="AM"
+                            >AM</Radio>
 
-                <Button submit>publish event</Button>
-            </Form>
+                            <Radio
+                                id="time_pm_format"
+                                name="time_format"
+                                v-model="formData.time_format"
+                                value-to-set="PM"
+                            >PM</Radio>
+                        </FormPanelRow>
+
+                        <FormPanelRow>
+                            <template #label>
+                                <Label for="duration">Duration</Label>
+                            </template>
+
+                            <ValidationProvider
+                                name="duration"
+                                rules="numeric|min_value:1|max_value:12"
+                                v-slot="{ errors, valid }"
+                                slim
+                            >
+                                <TextField
+                                    inline
+                                    id="duration"
+                                    name="duration"
+                                    v-model="formData.duration"
+                                    placeholder="Number"
+                                    :error-messages="errors"
+                                    :valid="valid"
+                                />
+                            </ValidationProvider>
+
+                            <span>hour</span>
+                        </FormPanelRow>
+                    </FormPanel>
+
+                    <Button submit>publish event</Button>
+                </Form>
+            </ValidationObserver>
 
             <Alert
-                v-else
+                v-if="isFormSubmitted"
                 type="success"
             >
                 <template #head>
@@ -214,6 +308,7 @@ import Alert from '@/components/Alert.vue';
 import categories from '@/data/categories.json';
 import employes from '@/data/employes.json';
 import moment from 'moment';
+import { ValidationProvider, ValidationObserver } from 'vee-validate';
 
 export default {
     created() {
@@ -243,7 +338,13 @@ export default {
         employes
     }),
     methods: {
-        submitForm() {
+        async submitForm() {
+            const isFormValid = await this.$refs.validationObserver.validate();
+
+            if (!isFormValid) {
+                return;
+            }
+
             // this.isFormSubmitted = true;
             console.log('form submited');
             const finalFormData = this.composeFinalFormDataObject(this.formData);
@@ -273,6 +374,11 @@ export default {
             }
         }
     },
+    computed: {
+        tomorrowDate() {
+            return moment().add(1, 'days').format('YYYY-MM-DD');
+        }
+    },
     components: {
         AppHeader,
         Form,
@@ -286,7 +392,9 @@ export default {
         TimeField,
         Button,
         Label,
-        Alert
+        Alert,
+        ValidationProvider,
+        ValidationObserver
     },
 }
 </script>

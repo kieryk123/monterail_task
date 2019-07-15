@@ -1,9 +1,10 @@
 <template>
-    <div class="form-field form-field--select">
+    <div :class="['form-field', 'form-field--select', validationClass]">
         <select
             required
             class="form-field__input"
             :id="id"
+            :name="name"
             @change="$emit('input', $event.target.value)"
             @blur="$emit('blur')"
         >
@@ -40,6 +41,7 @@
             </template>
         </select>
         <p v-if="helperText" class="form-field__helper-text">{{ helperText }}</p>
+        <span v-if="isErrorMessageVisible" class="form-field__error-label">{{ errorMessages[0] }}</span>
     </div>
 </template>
 
@@ -47,6 +49,10 @@
 export default {
     props: {
         id: {
+            type: String,
+            required: true
+        },
+        name: {
             type: String,
             required: true
         },
@@ -80,6 +86,14 @@ export default {
         groups: {
             type: [Array, String],
             required: false
+        },
+        errorMessages: {
+            type: Array,
+            required: false
+        },
+        valid: {
+            type: Boolean,
+            required: false
         }
     },
     computed: {
@@ -88,6 +102,16 @@ export default {
                 return this.options.filter(el => el.id != this.$store.getters.loggedUserId);
             } else {
                 return this.options;
+            }
+        },
+        validationClass() {
+            if (this.errorMessages) {
+                return this.valid || this.errorMessages.length === 0 ? '' : 'form-field--error';
+            }
+        },
+        isErrorMessageVisible() {
+            if (this.errorMessages) {
+                return this.valid || this.errorMessages.length === 0 ? false : true;
             }
         }
     },
