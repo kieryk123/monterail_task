@@ -246,11 +246,8 @@ export default {
         submitForm() {
             // this.isFormSubmitted = true;
             console.log('form submited');
-            console.log(JSON.stringify(this.formData, null, 4));
-            const datetime = this.getDatetime(this.formData.date, this.formData.time, this.formData.time_format);
-            console.log(datetime);
-            const duration = this.getSecondsFromHours(this.formData.duration);
-            console.log(duration);
+            const finalFormData = this.composeFinalFormDataObject(this.formData);
+            console.log(JSON.stringify(finalFormData, null, 4));
         },
         getDatetime(date, time, timeFormat) {
             time = moment(`${time}:00 ${timeFormat}`, 'hh:mm A').format('HH:mm');
@@ -258,6 +255,22 @@ export default {
         },
         getSecondsFromHours(hours) {
             return parseFloat(hours) * 3600;
+        },
+        composeFinalFormDataObject(data) {
+            return {
+                title: data.title.toString(),
+                description: data.description.toString(),
+                category_id: parseFloat(data.category_id),
+                paid_event: data.paid_event,
+                event_fee: parseFloat(data.event_fee),
+                reward: parseFloat(data.reward),
+                date: this.getDatetime(data.date, data.time, data.time_format), // YYYY-MM-DDTHH:mm (example: 2018-01-19T15:15)
+                duration: this.getSecondsFromHours(data.duration), // in seconds
+                coordinator: {
+                    email: data.coordinator.email.toString(),
+                    id: data.coordinator.id.toString()
+                }
+            }
         }
     },
     components: {
