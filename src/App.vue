@@ -7,7 +7,7 @@
                 v-slot="{ valid, untouched, validate }"
             >
                 <Form
-                    v-if="!isFormSubmitted"
+                    v-if="!isEventPublished"
                     @submit="submitForm"
                 >
                     <!-- ##### PANEL ABOUT ##### -->
@@ -66,10 +66,10 @@
                             <Select
                                 id="category"
                                 name="category"
-                                v-model="formData.category_id"
+                                v-model.number="formData.category_id"
                                 placeholder="Select category"
                                 helper-text="Describes topic and people who should be interested in this event"
-                                :options="categories"
+                                :options="categoriesList"
                                 option-key="name"
                                 option-value="id"
                             />
@@ -105,7 +105,7 @@
                                     inline
                                     id="event_fee"
                                     name="event_fee"
-                                    v-model="formData.event_fee"
+                                    v-model.number="formData.event_fee"
                                     placeholder="Fee"
                                     inputmode="numeric"
                                     :error-messages="errors"
@@ -130,7 +130,7 @@
                                     inline
                                     id="reward"
                                     name="reward"
-                                    v-model="formData.reward"
+                                    v-model.number="formData.reward"
                                     placeholder="Number"
                                     inputmode="numeric"
                                     :error-messages="errors"
@@ -160,7 +160,7 @@
                                     id="coordinator_id"
                                     name="coordinator_id"
                                     v-model="formData.coordinator.id"
-                                    :options="employes"
+                                    :options="employesList"
                                     :option-key="['name', 'lastname']"
                                     option-value="id"
                                     :groups="['Me', 'Others']"
@@ -264,7 +264,7 @@
                                     inline
                                     id="duration"
                                     name="duration"
-                                    v-model="formData.duration"
+                                    v-model.number="formData.duration"
                                     placeholder="Number"
                                     inputmode="numeric"
                                     :error-messages="errors"
@@ -281,7 +281,7 @@
             </ValidationObserver>
 
             <Alert
-                v-if="isFormSubmitted"
+                v-if="isEventPublished"
                 type="success"
             >
                 <template #head>
@@ -328,18 +328,15 @@ export default {
             paid_event: false,
             event_fee: null,
             reward: null,
-            date: '', // YYYY-MM-DDTHH:mm (example: 2018-01-19T15:15)
+            date: '',
             time: '',
             time_format: 'AM', // AM or PM
-            duration: null, // in seconds
+            duration: null,
             coordinator: {
                 email: '',
                 id: ''
             },
-        },
-        isFormSubmitted: false,
-        categories,
-        employes
+        }
     }),
     methods: {
         async submitForm() {
@@ -349,28 +346,29 @@ export default {
                 return;
             }
 
-            // this.isFormSubmitted = true;
-            console.log('form submited');
             const finalFormData = this.composeFinalFormDataObject(this.formData);
             console.log(JSON.stringify(finalFormData, null, 4));
+
+            this.$store.dispatch('publishEvent', finalFormData);
+            this.$store.dispatch('updateEventStatus', true);
         },
         getDatetime(date, time, timeFormat) {
             time = moment(`${time}:00 ${timeFormat}`, 'hh:mm A').format('HH:mm');
             return moment(`${date} ${time}`).format('YYYY-MM-DDTHH:mm');
         },
         getSecondsFromHours(hours) {
-            return parseFloat(hours) * 3600;
+            return hours * 3600;
         },
         composeFinalFormDataObject(data) {
             return {
                 title: data.title.toString(),
                 description: data.description.toString(),
-                category_id: parseFloat(data.category_id),
+                category_id: data.category_id,
                 paid_event: data.paid_event,
-                event_fee: parseFloat(data.event_fee),
-                reward: parseFloat(data.reward),
-                date: this.getDatetime(data.date, data.time, data.time_format), // YYYY-MM-DDTHH:mm (example: 2018-01-19T15:15)
-                duration: this.getSecondsFromHours(data.duration), // in seconds
+                event_fee: data.event_fee,
+                reward: data.reward,
+                date: this.getDatetime(data.date, data.time, data.time_format),
+                duration: this.getSecondsFromHours(data.duration),
                 coordinator: {
                     email: data.coordinator.email.toString(),
                     id: data.coordinator.id.toString()
@@ -381,6 +379,15 @@ export default {
     computed: {
         tomorrowDate() {
             return moment().add(1, 'days').format('YYYY-MM-DD');
+        },
+        isEventPublished() {
+            return this.$store.getters.isEventPublished;
+        },
+        categoriesList() {
+            return this.$store.getters.categoriesList;
+        },
+        employesList() {
+            return this.$store.getters.employesList;
         }
     },
     components: {

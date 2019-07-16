@@ -54,7 +54,7 @@ export default {
         inputmode: {
             type: String,
             required: false
-        },
+        }
     },
     computed: {
         inlineClass() {

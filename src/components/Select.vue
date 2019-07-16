@@ -17,14 +17,14 @@
                     <option
                         v-if="group === 'Me'"
                         :key="options[$store.getters.loggedUserId].id"
-                        :value="options[$store.getters.loggedUserId].id"
+                        :value="options[$store.getters.loggedUserId][optionValue]"
                         :selected="options[$store.getters.loggedUserId].id === value ? true : false"
                     >{{ group }} - {{ makeOptionString(options[$store.getters.loggedUserId]) }}</option>
                     <option
                         v-else
                         v-for="option in filteredOptions"
                         :key="option.id"
-                        :value="option.id"
+                        :value="option[optionValue]"
                         :selected="option.id === value ? true : false"
                     >{{ makeOptionString(option) }}</option>
                 </optgroup>
@@ -35,7 +35,7 @@
                 <option
                     v-for="option in filteredOptions"
                     :key="option.id"
-                    :value="option.id"
+                    :value="option[optionValue]"
                     :selected="option.id === value ? true : false"
                 >{{ makeOptionString(option) }}</option>
             </template>
