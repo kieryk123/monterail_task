@@ -6,6 +6,10 @@
     border-radius: 6px;
     box-shadow: $box-shadow-primary;
 
+    @include breakpoint(xs) {
+        padding: 20px 25px;
+    }
+
 	&__head {
         padding-top: 0;
         padding-bottom: 16px;
@@ -30,8 +34,26 @@
         align-items: baseline;
         margin-top: 19px;
 
+        @include breakpoint(sm) {
+            flex-wrap: wrap;
+        }
+
         .form-label {
             align-self: flex-start;
+
+            @include breakpoint(sm) {
+                width: 100%;
+                margin-bottom: 10px;
+            }
+        }
+
+        .radio,
+        .form-field {
+            @include breakpoint(sm) {
+                flex: 1;
+                flex-basis: 100%;
+                justify-content: flex-start;
+            }
         }
 
         span:not(.form-label__required-sign):not(.form-field__error-label) {
