@@ -300,19 +300,26 @@
 </template>
 
 <script>
+// general components imports
 import AppHeader from '@/components/AppHeader.vue';
 import Form from '@/components/Form.vue';
-import FormPanel from '@/components/form-elements/FormPanel.vue';
-import FormPanelRow from '@/components/form-elements/FormPanelRow.vue';
 import Button from '@/components/Button.vue';
 import Label from '@/components/Label.vue';
+import Alert from '@/components/Alert.vue';
+
+// form-elements components imports
+import FormPanel from '@/components/form-elements/FormPanel.vue';
+import FormPanelRow from '@/components/form-elements/FormPanelRow.vue';
+
+// form inputs components imports
 import TextField from '@/components/form-inputs/TextField.vue';
 import TextArea from '@/components/form-inputs/TextArea.vue';
 import Select from '@/components/form-inputs/Select.vue';
 import Radio from '@/components/form-inputs/Radio.vue';
 import DateField from '@/components/form-inputs/DateField.vue';
 import TimeField from '@/components/form-inputs/TimeField.vue';
-import Alert from '@/components/Alert.vue';
+
+// libraries, modules nad other imports
 import moment from 'moment';
 import { ValidationProvider, ValidationObserver } from 'vee-validate';
 
