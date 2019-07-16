@@ -370,7 +370,7 @@ export default {
                 event_fee: data.event_fee,
                 reward: data.reward,
                 date: this.getDatetime(data.date, data.time, data.time_format),
-                duration: this.getSecondsFromHours(data.duration),
+                duration: data.duration ? this.getSecondsFromHours(data.duration) : null,
                 coordinator: {
                     email: data.coordinator.email.toString(),
                     id: data.coordinator.id.toString()
