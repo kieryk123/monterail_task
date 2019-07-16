@@ -15,6 +15,7 @@
         box-shadow: none;
         color: $font-color-primary;
         background-color: white;
+        transition: .2s border-color ease-in-out;
 
         &::placeholder {
             color: rgba($font-color-primary, 0.75);
