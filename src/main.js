@@ -9,7 +9,7 @@ Vue.use(VeeValidate);
 const tomorrowDate = moment().add(1, 'days').format('YYYY-MM-DD');
 
 Validator.extend('afterToday', {
- getMessage: field => 'The minimum date is tomorrow.',
+ getMessage: () => 'The minimum date is tomorrow.',
  validate: value => value >= tomorrowDate
 });
 

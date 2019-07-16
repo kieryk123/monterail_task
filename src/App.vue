@@ -302,16 +302,16 @@
 <script>
 import AppHeader from '@/components/AppHeader.vue';
 import Form from '@/components/Form.vue';
-import FormPanel from '@/components/FormPanel.vue';
-import FormPanelRow from '@/components/FormPanelRow.vue';
+import FormPanel from '@/components/form-elements/FormPanel.vue';
+import FormPanelRow from '@/components/form-elements/FormPanelRow.vue';
 import Button from '@/components/Button.vue';
 import Label from '@/components/Label.vue';
-import TextField from '@/components/TextField.vue';
-import TextArea from '@/components/TextArea.vue';
-import Select from '@/components/Select.vue';
-import Radio from '@/components/Radio.vue';
-import DateField from '@/components/DateField.vue';
-import TimeField from '@/components/TimeField.vue';
+import TextField from '@/components/form-inputs/TextField.vue';
+import TextArea from '@/components/form-inputs/TextArea.vue';
+import Select from '@/components/form-inputs/Select.vue';
+import Radio from '@/components/form-inputs/Radio.vue';
+import DateField from '@/components/form-inputs/DateField.vue';
+import TimeField from '@/components/form-inputs/TimeField.vue';
 import Alert from '@/components/Alert.vue';
 import moment from 'moment';
 import { ValidationProvider, ValidationObserver } from 'vee-validate';
