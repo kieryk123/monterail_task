@@ -206,7 +206,7 @@
 
                                 <ValidationProvider
                                     name="date"
-                                    rules="required"
+                                    rules="required|afterToday"
                                     v-slot="{ errors, valid }"
                                     slim
                                 >
