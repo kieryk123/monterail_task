@@ -309,8 +309,6 @@ import Radio from '@/components/Radio.vue';
 import DateField from '@/components/DateField.vue';
 import TimeField from '@/components/TimeField.vue';
 import Alert from '@/components/Alert.vue';
-import categories from '@/data/categories.json';
-import employes from '@/data/employes.json';
 import moment from 'moment';
 import { ValidationProvider, ValidationObserver } from 'vee-validate';
 
