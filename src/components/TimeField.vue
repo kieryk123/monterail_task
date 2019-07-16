@@ -51,11 +51,15 @@ export default {
         validationClass() {
             if (this.errorMessages) {
                 return this.valid || this.errorMessages.length === 0 ? '' : 'form-field--error';
+            } else {
+                return null;
             }
         },
         isErrorMessageVisible() {
             if (this.errorMessages) {
                 return this.valid || this.errorMessages.length === 0 ? false : true;
+            } else {
+                return null;
             }
         }
     }
