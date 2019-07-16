@@ -1,7 +1,9 @@
 <template functional>
     <label class="form-label" :for="props.for">
         <slot></slot>
-        <span v-if="props.required" class="form-label__required-sign">*</span>
+        <transition name="fade-inline">
+            <span v-if="props.required" class="form-label__required-sign">*</span>
+        </transition>
     </label>
 </template>
 

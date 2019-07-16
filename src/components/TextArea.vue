@@ -13,7 +13,9 @@
             <span>{{ helperText }}</span>
             <span>{{ length }}/{{ maxLength }}</span>
         </p>
-        <span v-if="isErrorMessageVisible" class="form-field__error-label">{{ errorMessages[0] }}</span>
+        <transition name="fade-inline">
+            <span v-if="isErrorMessageVisible" class="form-field__error-label">{{ errorMessages[0] }}</span>
+        </transition>
     </div>
 </template>
 
