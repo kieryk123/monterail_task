@@ -7,6 +7,7 @@
             type="text"
             :value="value"
             :placeholder="placeholder"
+            :inputmode="inputmode"
             @input="$emit('input', $event.target.value)"
             @blur="$emit('blur')"
         >
@@ -49,7 +50,11 @@ export default {
         valid: {
             type: Boolean,
             required: false
-        }
+        },
+        inputmode: {
+            type: String,
+            required: false
+        },
     },
     computed: {
         inlineClass() {

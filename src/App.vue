@@ -107,6 +107,7 @@
                                     name="event_fee"
                                     v-model="formData.event_fee"
                                     placeholder="Fee"
+                                    inputmode="numeric"
                                     :error-messages="errors"
                                     :valid="valid"
                                 />
@@ -131,6 +132,7 @@
                                     name="reward"
                                     v-model="formData.reward"
                                     placeholder="Number"
+                                    inputmode="numeric"
                                     :error-messages="errors"
                                     :valid="valid"
                                 />
@@ -184,6 +186,7 @@
                                     name="coordinator_email"
                                     v-model="formData.coordinator.email"
                                     placeholder="Email"
+                                    inputmode="email"
                                     :error-messages="errors"
                                     :valid="valid"
                                 />
@@ -263,6 +266,7 @@
                                     name="duration"
                                     v-model="formData.duration"
                                     placeholder="Number"
+                                    inputmode="numeric"
                                     :error-messages="errors"
                                     :valid="valid"
                                 />
