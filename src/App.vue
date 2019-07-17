@@ -6,7 +6,7 @@
                 <ValidationObserver
                     v-if="!isEventPublished"
                     ref="validationObserver"
-                    v-slot="{ valid, untouched, validate }"
+                    v-slot="{ invalid, untouched, validate }"
                 >
                     <Form @submit="submitForm">
                         <!-- ##### PANEL ABOUT ##### -->
@@ -279,7 +279,10 @@
                             </FormPanelRow>
                         </FormPanel>
 
-                        <Button submit>publish event</Button>
+                        <Button
+                            submit
+                            :disabled="invalid || untouched"
+                        >publish event</Button>
                     </Form>
                 </ValidationObserver>
 

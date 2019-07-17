@@ -1,6 +1,6 @@
 <template functional>
     <button
-        class="btn" 
+        :class="['btn', `${props.disabled ? 'btn--disabled' : ''}`]"
         :type="props.submit ? 'submit' : 'button'"
     >
         <slot></slot>
@@ -11,6 +11,10 @@
 export default {
     props: {
         submit: {
+            type: Boolean,
+            required: false
+        },
+        disabled: {
             type: Boolean,
             required: false
         }
