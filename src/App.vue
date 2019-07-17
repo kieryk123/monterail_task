@@ -302,22 +302,22 @@
 <script>
 // general components imports
 import AppHeader from '@/components/AppHeader.vue';
-import Form from '@/components/Form.vue';
 import Button from '@/components/Button.vue';
 import Label from '@/components/Label.vue';
 import Alert from '@/components/Alert.vue';
 
-// form-elements components imports
-import FormPanel from '@/components/form-elements/FormPanel.vue';
-import FormPanelRow from '@/components/form-elements/FormPanelRow.vue';
+// Form component elements imports
+import Form from '@/components/Form/Form.vue';
+import FormPanel from '@/components/Form/FormPanel.vue';
+import FormPanelRow from '@/components/Form/FormPanelRow.vue';
 
-// form inputs components imports
-import TextField from '@/components/form-inputs/TextField.vue';
-import TextArea from '@/components/form-inputs/TextArea.vue';
-import Select from '@/components/form-inputs/Select.vue';
-import Radio from '@/components/form-inputs/Radio.vue';
-import DateField from '@/components/form-inputs/DateField.vue';
-import TimeField from '@/components/form-inputs/TimeField.vue';
+// form fields imports
+import TextField from '@/components/form-fields/TextField.vue';
+import TextArea from '@/components/form-fields/TextArea.vue';
+import Select from '@/components/form-fields/Select.vue';
+import Radio from '@/components/form-fields/Radio.vue';
+import DateField from '@/components/form-fields/DateField.vue';
+import TimeField from '@/components/form-fields/TimeField.vue';
 
 // libraries, modules nad other imports
 import moment from 'moment';
