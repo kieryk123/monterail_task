@@ -3,7 +3,7 @@ import App from './App.vue';
 import VeeValidate, { Validator } from 'vee-validate';
 import store from './store';
 import moment from 'moment';
-import './vee-validate/validators'
+import './vee-validate/validators';
 
 Vue.use(VeeValidate);
 
