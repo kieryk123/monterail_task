@@ -48,19 +48,11 @@
 </template>
 
 <script>
+import { formFieldMixin } from '@/mixins.js';
+
 export default {
+    mixins: [formFieldMixin],
     props: {
-        id: {
-            type: String,
-            required: true
-        },
-        name: {
-            type: String,
-            required: true
-        },
-        value: {
-            required: true
-        },
         placeholder: {
             type: String,
             required: false
@@ -88,14 +80,6 @@ export default {
         groups: {
             type: [Array, String],
             required: false
-        },
-        errorMessages: {
-            type: Array,
-            required: false
-        },
-        valid: {
-            type: Boolean,
-            required: false
         }
     },
     computed: {
@@ -104,20 +88,6 @@ export default {
                 return this.options.filter(el => el.id != this.$store.getters.loggedUserId);
             } else {
                 return this.options;
-            }
-        },
-        validationClass() {
-            if (this.errorMessages) {
-                return this.valid || this.errorMessages.length === 0 ? '' : 'form-field--error';
-            } else {
-                return null;
-            }
-        },
-        isErrorMessageVisible() {
-            if (this.errorMessages) {
-                return this.valid || this.errorMessages.length === 0 ? false : true;
-            } else {
-                return null;
             }
         }
     },

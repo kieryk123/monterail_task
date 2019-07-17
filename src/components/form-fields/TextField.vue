@@ -19,19 +19,11 @@
 </template>
 
 <script>
+import { formFieldMixin } from '@/mixins.js';
+
 export default {
+    mixins: [formFieldMixin],
     props: {
-        value: {
-            required: true
-        },
-        id: {
-            type: String,
-            required: true
-        },
-        name: {
-            type: String,
-            required: true
-        },
         placeholder: {
             type: String,
             required: false
@@ -45,14 +37,6 @@ export default {
             required: false,
             default: false
         },
-        errorMessages: {
-            type: Array,
-            required: false
-        },
-        valid: {
-            type: Boolean,
-            required: false
-        },
         inputmode: {
             type: String,
             required: false
@@ -61,20 +45,6 @@ export default {
     computed: {
         inlineClass() {
             return this.inline ? 'form-field--inline' : '';
-        },
-        validationClass() {
-            if (this.errorMessages) {
-                return this.valid || this.errorMessages.length === 0 ? '' : 'form-field--error';
-            } else {
-                return null;
-            }
-        },
-        isErrorMessageVisible() {
-            if (this.errorMessages) {
-                return this.valid || this.errorMessages.length === 0 ? false : true;
-            } else {
-                return null;
-            }
         }
     }
 }

@@ -20,22 +20,14 @@
 </template>
 
 <script>
+import { formFieldMixin } from '@/mixins.js';
+
 export default {
+    mixins: [formFieldMixin],
     created() {
             this.localValue = this.value;
     },
     props: {
-        value: {
-            required: true
-        },
-        id: {
-            type: String,
-            required: true
-        },
-        name: {
-            type: String,
-            required: true
-        },
         placeholder: {
             type: String,
             required: false
@@ -51,14 +43,6 @@ export default {
         maxLength: {
             type: Number,
             required: false
-        },
-        errorMessages: {
-            type: Array,
-            required: false
-        },
-        valid: {
-            type: Boolean,
-            required: false
         }
     },
     data: () => ({
@@ -72,20 +56,6 @@ export default {
     computed: {
         length() {
             return this.localValue.length;
-        },
-        validationClass() {
-            if (this.errorMessages) {
-                return this.valid || this.errorMessages.length === 0 ? '' : 'form-field--error';
-            } else {
-                return null;
-            }
-        },
-        isErrorMessageVisible() {
-            if (this.errorMessages) {
-                return this.valid || this.errorMessages.length === 0 ? false : true;
-            } else {
-                return null;
-            }
         }
     }
 }
