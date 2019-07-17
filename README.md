@@ -2,6 +2,8 @@
 
 Javascript position recruitment task for Monterail made by Paweł Kieryk.
 
+LIVE VERSION: [CLICK HERE](http://dev.fireart.pl/monterail/)
+
 ### I used:
 
 - Vue
@@ -43,8 +45,6 @@ I've also added some animations.
 - Make custom datepicker and timepicker component.
 
 - Make responsive version to look better.
-
-
 
 ### Build Setup
 
